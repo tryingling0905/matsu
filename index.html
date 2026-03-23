@@ -10,6 +10,49 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script>
+// ============================================================
+//  ★ 同事要改的東西都在這裡，改完存檔 push 就好 ★
+// ============================================================
+const CONFIG = {
+  // ----- 活動日期（確認後改這行）-----
+  eventDate: "活動日期確認中",  // 例如改成 "2026 年 5 月 17 日（六）"
+  // ----- 三個按鈕的連結 -----
+  volunteerLink: "#",   // 志工報名 Google 表單連結
+  sponsorLink:   "#",   // 企業贊助 Google 表單連結
+  infoLink:      "#",   // 繞境路線文章連結（文章上線後貼網址）
+  // ----- 報導文章（上線後填入）-----
+  articles: [
+    {
+      show:    true,
+      tag:     "深度報導",
+      title:   "北港媽祖為何首巡基隆？330 年首次出巡的歷史意義",
+      excerpt: "北港朝天宮創建於 1694 年，全台分靈最多。330 年來繞境從未離開北港，這次第一站選定基隆...",
+      link:    "#",           // 文章上線後貼網址
+      image:   ""             // 填圖片網址，空白就顯示預設底色
+    },
+    {
+      show:    true,
+      tag:     "全攻略",
+      title:   "北港媽祖基隆繞境全攻略：時間、路線、怎麼參與",
+      excerpt: "繞境路線怎麼走？什麼時間到哪裡可以看到？基隆人一篇看懂怎麼參與...",
+      link:    "#",
+      image:   ""
+    },
+    {
+      show:    false,          // 改成 true 就會顯示
+      tag:     "現場紀錄",
+      title:   "北港媽首巡基隆現場全紀錄",
+      excerpt: "海嗨編輯團隊全程隨行，用鏡頭記錄這場歷史性的一天...",
+      link:    "#",
+      image:   ""
+    }
+  ]
+};
+// ============================================================
+//  ★ 以下不用動 ★
+// ============================================================
+</script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -118,15 +161,15 @@
     box-shadow: 0 8px 24px rgba(192,57,43,0.15);
   }
   .action-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
     flex-shrink: 0;
   }
+  .action-icon svg { width: 22px; height: 22px; }
   .action-icon.volunteer { background: linear-gradient(135deg, #e74c3c, #c0392b); }
   .action-icon.sponsor { background: linear-gradient(135deg, #d4a017, #aa821e); }
   .action-icon.info { background: linear-gradient(135deg, #17a1ff, #1280cc); }
@@ -159,14 +202,10 @@
     align-items: center;
     justify-content: center;
     font-size: 14px;
-    color: #666;
+    color: #555;
+    background-size: cover;
+    background-position: center;
   }
-  /* TODO: 文章上線後把 .article-thumb 換成實際圖片
-     範例：
-     .article-thumb.article-1 {
-       background: url('你的圖片網址') center/cover;
-     }
-  */
   .article-body { padding: 20px 24px; }
   .article-tag {
     display: inline-block;
@@ -188,7 +227,7 @@
   .placeholder-note {
     text-align: center;
     padding: 40px 24px;
-    color: #666;
+    color: #555;
     font-size: 14px;
     border: 1px dashed #333;
     border-radius: 14px;
@@ -220,42 +259,49 @@
 </style>
 </head>
 <body>
-  <!-- ========== HERO ========== -->
-  <!-- TODO: 拿到朝天宮主視覺後，可加背景圖 -->
   <div class="hero">
     <div class="hero-badge">330 年首次跨縣市出巡</div>
     <h1>北港朝天宮<br>基隆首巡</h1>
     <div class="hero-sub">台灣媽祖總本山，第一次離開北港，<br>第一站就選定基隆。</div>
-    <!-- TODO: 日期確認後改這裡 -->
-    <div class="hero-date">
-      <span>📅</span>
-      <span>活動日期確認中</span>
-    </div>
+    <div class="hero-date" id="dateDisplay"></div>
   </div>
   <div class="main">
-    <!-- ========== 行動區 ========== -->
     <div class="section-label">參與這場盛事</div>
-    <!-- TODO: 把 href="#" 換成實際的 Google 表單連結 -->
-    <a class="action-card" href="#">
-      <div class="action-icon volunteer">🙋</div>
+    <a class="action-card" id="volunteerBtn">
+      <div class="action-icon volunteer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
       <div class="action-text">
         <div class="action-title">志工報名</div>
         <div class="action-desc">加入基隆首巡志工團隊，一起迎接北港媽</div>
       </div>
       <div class="action-arrow">→</div>
     </a>
-    <!-- TODO: 把 href="#" 換成實際的 Google 表單連結 -->
-    <a class="action-card" href="#">
-      <div class="action-icon sponsor">🏢</div>
+    <a class="action-card" id="sponsorBtn">
+      <div class="action-icon sponsor">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+        </svg>
+      </div>
       <div class="action-text">
         <div class="action-title">企業贊助</div>
-        <div class="action-desc">基隆在地企業響應贊助，與北港媽一起寫歷史</div>
+        <div class="action-desc">基隆在地企業響應，與北港媽一起寫歷史</div>
       </div>
       <div class="action-arrow">→</div>
     </a>
-    <!-- TODO: 把 href="#" 換成繞境攻略文章連結 -->
-    <a class="action-card" href="#">
-      <div class="action-icon info">📍</div>
+    <a class="action-card" id="infoBtn">
+      <div class="action-icon info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
       <div class="action-text">
         <div class="action-title">繞境路線與時間</div>
         <div class="action-desc">什麼時候、在哪裡、怎麼參與，一次看懂</div>
@@ -263,30 +309,9 @@
       <div class="action-arrow">→</div>
     </a>
     <div class="divider"></div>
-    <!-- ========== 報導區 ========== -->
     <div class="section-label">海嗨報導</div>
-    <!-- TODO: 文章上線後把 href="#" 換成實際文章連結 -->
-    <a class="article-card" href="#">
-      <div class="article-thumb">主視覺圖片區（文章上線後替換）</div>
-      <div class="article-body">
-        <div class="article-tag">深度報導</div>
-        <div class="article-title">北港媽祖為何首巡基隆？330 年首次出巡的歷史意義</div>
-        <div class="article-excerpt">北港朝天宮創建於 1694 年，全台分靈最多。330 年來繞境從未離開北港，這次第一站選定基隆...</div>
-      </div>
-    </a>
-    <a class="article-card" href="#">
-      <div class="article-thumb">主視覺圖片區（文章上線後替換）</div>
-      <div class="article-body">
-        <div class="article-tag">全攻略</div>
-        <div class="article-title">北港媽祖基隆繞境全攻略：時間、路線、怎麼參與</div>
-        <div class="article-excerpt">繞境路線怎麼走？什麼時間到哪裡可以看到？基隆人一篇看懂怎麼參與...</div>
-      </div>
-    </a>
-    <div class="placeholder-note">
-      🔜 繞境現場紀錄<br>活動結束後刊出
-    </div>
+    <div id="articlesContainer"></div>
     <div class="divider"></div>
-    <!-- ========== FOOTER ========== -->
     <div class="page-footer">
       <div class="footer-logos">
         <span>基隆海嗨</span>
@@ -299,5 +324,32 @@
       </div>
     </div>
   </div>
+<script>
+// 用 CONFIG 填入頁面內容
+document.getElementById('dateDisplay').innerHTML = '📅 ' + CONFIG.eventDate;
+document.getElementById('volunteerBtn').href = CONFIG.volunteerLink;
+document.getElementById('sponsorBtn').href = CONFIG.sponsorLink;
+document.getElementById('infoBtn').href = CONFIG.infoLink;
+// 產生文章卡片
+var container = document.getElementById('articlesContainer');
+var hasHidden = false;
+CONFIG.articles.forEach(function(a) {
+  if (!a.show) { hasHidden = true; return; }
+  var thumbStyle = a.image
+    ? 'background-image:url(' + a.image + ');'
+    : '';
+  var thumbText = a.image ? '' : '圖片待更新';
+  container.innerHTML += '<a class="article-card" href="' + a.link + '">'
+    + '<div class="article-thumb" style="' + thumbStyle + '">' + thumbText + '</div>'
+    + '<div class="article-body">'
+    + '<div class="article-tag">' + a.tag + '</div>'
+    + '<div class="article-title">' + a.title + '</div>'
+    + '<div class="article-excerpt">' + a.excerpt + '</div>'
+    + '</div></a>';
+});
+if (hasHidden) {
+  container.innerHTML += '<div class="placeholder-note">更多報導，活動結束後刊出</div>';
+}
+</script>
 </body>
 </html>
